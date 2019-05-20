@@ -8,6 +8,8 @@
 #
 # diegoCode / CC-BY-SA 4.0 / ARG
 
+import csv
+
 max_width = 36
 max_height = 10
 
@@ -17,14 +19,13 @@ show_percent = True
 default_char = '#'
 
 # data for graphic => label: value
-data = {'apple': 50, 'banana': 75, 'peach': 30, 'orange': 40, 'lemon': 60}
+# data = {'apple': 50, 'banana': 75, 'peach': 30, 'orange': 40, 'lemon': 60}
 
 class DataPoint:
     def __init__(self, lbl, val, char = default_char):
         self.label = lbl
         self.value = val
         self.character = char
-
 
 class DataSeries:
     def __init__(self):
@@ -42,6 +43,15 @@ class DataSeries:
                 m = p.value
                 
         return m
+
+# load data from file
+data = {}
+with open("data.csv") as f:
+	s = csv.reader(f, delimiter=";")
+	for i in s:
+		data[i[0]] = float(i[1])
+
+print(data)
 
 # sort items 
 tData = sorted(data.items(), key=lambda x: -x[1])
